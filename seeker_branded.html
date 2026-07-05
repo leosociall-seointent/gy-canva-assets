@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  .page {
+    position:relative; width:1080px; height:1080px; overflow:hidden;
+    background:#0E1024; font-family:'Helvetica Neue', Arial, sans-serif;
+  }
+  .bg { position:absolute; top:0; left:0; width:1080px; height:1080px; object-fit:cover; }
+  .scrim {
+    position:absolute; top:0; left:0; width:1080px; height:1080px;
+    background:
+      linear-gradient(90deg, rgba(9,12,26,0.92) 0%, rgba(9,12,26,0.62) 44%, rgba(9,12,26,0.10) 72%, rgba(9,12,26,0) 100%),
+      linear-gradient(0deg, rgba(9,12,26,0.88) 2%, rgba(9,12,26,0) 46%);
+  }
+  .logo { position:absolute; top:56px; left:60px; height:54px; }
+  .pill {
+    position:absolute; top:62px; right:60px; border:2px solid #52D695; color:#52D695;
+    font-weight:700; font-size:22px; letter-spacing:2px; padding:12px 28px; border-radius:40px;
+  }
+  .accent { position:absolute; top:402px; left:64px; width:92px; height:10px; background:#52D695; border-radius:6px; }
+  .headline {
+    position:absolute; top:428px; left:60px; width:920px; color:#FFFFFF;
+    font-family:Impact,'Arial Black',sans-serif; font-size:120px; line-height:0.97; letter-spacing:-1px;
+  }
+  .subhead {
+    position:absolute; top:652px; left:64px; width:910px; color:#EEF2FB;
+    font-size:30px; font-weight:600; line-height:1.28;
+  }
+  .steps { position:absolute; top:748px; left:64px; width:840px; }
+  .step { display:flex; align-items:center; margin-bottom:16px; }
+  .num {
+    width:44px; height:44px; border:2px solid #52D695; color:#52D695; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:22px; margin-right:22px;
+  }
+  .step .label { color:#FFFFFF; font-size:28px; font-weight:600; }
+  .cta { position:absolute; left:64px; bottom:70px; display:flex; align-items:center; }
+  .btn { background:#52D695; color:#06251A; font-weight:800; font-size:32px; padding:24px 40px; border-radius:14px; }
+  .url { color:#EEF2FB; font-size:30px; font-weight:700; margin-left:28px; }
+</style>
+</head>
+<body>
+  <div class="page" data-document-role="page" data-label="GY SAT — Seeker (Branded System)">
+    <img class="bg" src="https://raw.githubusercontent.com/leosociall-seointent/gy-canva-assets/main/seeker_bg.png" alt="Young professional with a laptop">
+    <div class="scrim"></div>
+    <img class="logo" src="https://raw.githubusercontent.com/leosociall-seointent/gy-canva-assets/main/gy-logo.png" alt="GroYouth logo">
+    <div class="pill">FOR FRESHERS</div>
+    <div class="accent"></div>
+    <div class="headline">Verify your skills in 20 minutes.</div>
+    <div class="subhead">The free GY SAT turns &ldquo;I think I&rsquo;m job-ready&rdquo; into proof employers can see &mdash; no degree needed.</div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div class="label">Take the 20-minute test</div></div>
+      <div class="step"><div class="num">2</div><div class="label">Get a verified skill score</div></div>
+      <div class="step"><div class="num">3</div><div class="label">Get found by hiring companies</div></div>
+    </div>
+    <div class="cta"><div class="btn">Take the free GY SAT &rarr;</div><div class="url">groyouth.com</div></div>
+  </div>
+</body>
+</html>
