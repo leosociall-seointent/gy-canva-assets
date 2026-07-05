@@ -39,14 +39,14 @@ CSS = """
     border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:22px; margin-right:22px; }
   .row .label { color:#FFFFFF; font-size:28px; font-weight:600; }
   .cta { position:absolute; left:64px; bottom:70px; display:flex; align-items:center; }
-  .btn { background:var(--accent); color:%(btn_text)s; font-weight:800; font-size:32px; padding:24px 40px; border-radius:14px; }
+  .btn { background:var(--accent); color:#08122B; font-weight:800; font-size:32px; padding:24px 40px; border-radius:14px; }
   .url { color:#EEF2FB; font-size:30px; font-weight:700; margin-left:28px; }
   .statflow { position:absolute; left:60px; display:flex; align-items:center; }
   .bignum { font-family:Impact,'Arial Black',sans-serif; color:#FFFFFF; font-size:150px; line-height:1; }
   .arrow { color:var(--accent); font-size:90px; font-weight:800; margin:0 34px; }
   .bigto { font-family:Impact,'Arial Black',sans-serif; color:var(--accent); font-size:150px; line-height:1; }
   .attrib { position:absolute; left:64px; color:var(--accent); font-size:26px; font-weight:700; letter-spacing:1px; }
-""" % {"btn_text": BTN_TEXT}
+"""
 
 def esc(s): return html.escape(s, quote=False)
 
@@ -88,7 +88,7 @@ def statflow(headline, num_from, num_to, caption, btn, hsize=92):
 def typographic(headline, attrib, btn, hsize=100):
     return (f'<div class="accent" style="top:392px"></div>'
             f'<div class="headline" style="top:418px;font-size:{hsize}px">{esc(headline)}</div>'
-            f'<div class="attrib" style="top:absolute;top:760px">{esc(attrib)}</div>'
+            f'<div class="attrib" style="top:760px">{esc(attrib)}</div>'
             + cta(btn))
 
 # ------------------------------------------------------------------ POSTS
