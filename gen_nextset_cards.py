@@ -16,7 +16,8 @@ BG_NAVY, BG_VIOLET, BG_RADIAL = BASE+"ns_bg_navy.png", BASE+"ns_bg_violet.png", 
 
 HEAD = """<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=1080, height=1080"><style>
-  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{size:1080px 1080px;margin:0;}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   html,body{width:1080px;height:1080px;}
   .page{position:relative;width:1080px;height:1080px;overflow:hidden;
     font-family:'Helvetica Neue',Arial,sans-serif;color:#EEF2FB;}
