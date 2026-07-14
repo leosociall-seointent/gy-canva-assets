@@ -145,7 +145,7 @@ def s5():
           <div class="h1" style="font-size:76px;line-height:1.02;">MORE THAN A R&#201;SUM&#201;</div>
           <div class="sub" style="font-size:29px;margin-top:22px;width:400px;">GY Assist builds your verified, job-ready profile.</div>
         </div>
-        <div style="flex:1;background:#fff;border-radius:28px;padding:34px 32px;color:#0E1024;box-shadow:0 30px 80px rgba(0,0,0,0.35);">
+        <div style="flex:1;background:#fff;border-radius:28px;padding:34px 32px;color:#0E1024;">
           <div style="display:flex;align-items:center;gap:18px;">
             <div style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#B98CFF,#52D695);color:#fff;font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto;">AS</div>
             <div><div style="font-size:30px;font-weight:800;">Ananya Sharma</div>
