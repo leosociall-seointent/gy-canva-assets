@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
 """
 Editable single-card HTML for the July Week-2 "next set" statics (S1-S5).
-Text/CSS only -> imports into Canva as native EDITABLE designs (no image garble,
-no crop, no collision). data-document-role="page" on the single page div.
+Text/CSS only -> imports into Canva as native EDITABLE designs.
+
+Square-canvas fix: like the proven a_*/be_* templates, .page is a plain
+positioned 1080x1080 block with a full-bleed .bg layer (so Canva imports 1:1,
+not a 16:9 presentation). Content sits in an absolute .wrap.
 
     python3 gen_nextset_cards.py   # writes ns_s1..ns_s5.html
 """
+import math
 LOGO = "https://raw.githubusercontent.com/leosociall-seointent/gy-canva-assets/main/gy-logo.png"
 
-HEAD = """<!doctype html><html><head><meta charset="utf-8"><style>
+HEAD = """<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=1080, height=1080"><style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  .page{position:relative;width:1080px;height:1080px;overflow:hidden;padding:60px 64px;
-    display:flex;flex-direction:column;background:%(bg)s;
+  html,body{width:1080px;height:1080px;}
+  .page{position:relative;width:1080px;height:1080px;overflow:hidden;
     font-family:'Helvetica Neue',Arial,sans-serif;color:#EEF2FB;}
+  .bg{position:absolute;top:0;left:0;width:1080px;height:1080px;background:%(bg)s;}
+  .wrap{position:absolute;top:0;left:0;width:1080px;height:1080px;
+    padding:60px 64px;display:flex;flex-direction:column;}
   .top{display:flex;justify-content:space-between;align-items:center;}
   .logo{height:48px;}
   .pill{border:2px solid %(acc)s;color:%(acc)s;font-weight:800;font-size:20px;
@@ -25,7 +33,10 @@ HEAD = """<!doctype html><html><head><meta charset="utf-8"><style>
   .url{color:#EEF2FB;font-size:27px;font-weight:800;}
 </style></head><body>"""
 
-def head(bg, acc): return HEAD % {"bg": bg, "acc": acc}
+def page(bg, acc, inner):
+    head = HEAD % {"bg": bg, "acc": acc}
+    return head + f'<div class="page"><div class="bg"></div><div class="wrap">{inner}</div></div></body></html>'
+
 NAVY = "#0E1024"
 
 # ---------- S1: cost of a bad hire ----------
@@ -44,19 +55,18 @@ def s1():
     for i,(lab,amt,svg) in enumerate(rows):
         border = "" if i==0 else "border-top:1px solid #262a45;"
         r += f'''<div style="display:flex;align-items:center;padding:26px 8px;{border}">
-          <div style="width:60px;height:60px;border-radius:50%;border:2px solid #47A3FF;display:flex;align-items:center;justify-content:center;margin-right:26px;">
+          <div style="width:60px;height:60px;border-radius:50%;border:2px solid #47A3FF;display:flex;align-items:center;justify-content:center;margin-right:26px;flex:0 0 auto;">
             <svg width="48" height="48" viewBox="0 0 48 48">{svg}</svg></div>
           <div style="flex:1;font-size:33px;font-weight:800;color:#fff;">{lab}</div>
           <div style="font-size:36px;font-weight:800;color:#47A3FF;font-family:Georgia,serif;">{amt}</div>
         </div>'''
-    return head(NAVY,"#47A3FF") + f'''
-    <div class="page">
+    inner = f'''
       <div class="top"><img class="logo" src="{LOGO}"><div class="pill">INDUSTRY DATA</div></div>
       <div class="h1" style="font-size:60px;margin-top:40px;line-height:1.02;">THE TRUE COST OF ONE BAD HIRE</div>
       <div class="h1" style="font-size:108px;color:#47A3FF;font-family:Georgia,serif;margin-top:10px;">&#8377;5&#8211;7 LAKH</div>
       <div style="background:#14162E;border-radius:20px;padding:6px 26px;margin-top:34px;">{r}</div>
-      <div class="foot"><div class="url" style="margin-left:auto;">groyouth.com</div></div>
-    </div></body></html>'''
+      <div class="foot"><div class="url" style="margin-left:auto;">groyouth.com</div></div>'''
+    return page(NAVY, "#47A3FF", inner)
 
 # ---------- S2: job post -> shortlist in 3 steps ----------
 def s2():
@@ -68,17 +78,16 @@ def s2():
     s = ""
     for n,t,sub in steps:
         s += f'''<div style="display:flex;align-items:center;background:#14162E;border-radius:18px;padding:30px 34px;margin-bottom:22px;">
-          <div style="width:74px;height:74px;border-radius:50%;background:#47A3FF;color:#08122B;font-family:Impact,sans-serif;font-size:44px;display:flex;align-items:center;justify-content:center;margin-right:30px;">{n}</div>
+          <div style="width:74px;height:74px;border-radius:50%;background:#47A3FF;color:#08122B;font-family:Impact,sans-serif;font-size:44px;display:flex;align-items:center;justify-content:center;margin-right:30px;flex:0 0 auto;">{n}</div>
           <div><div style="font-size:37px;font-weight:800;color:#fff;">{t}</div>
           <div style="font-size:25px;font-weight:600;color:#97A1C4;margin-top:6px;">{sub}</div></div>
         </div>'''
-    return head(NAVY,"#47A3FF") + f'''
-    <div class="page">
+    inner = f'''
       <div class="top"><img class="logo" src="{LOGO}"><div class="pill">FOR EMPLOYERS</div></div>
       <div class="h1" style="font-size:56px;margin-top:44px;">JOB POST &#8594; SHORTLIST IN 3 STEPS</div>
       <div style="margin-top:40px;">{s}</div>
-      <div class="foot"><div class="btn">Post a role free &#8594;</div><div class="url">groyouth.com</div></div>
-    </div></body></html>'''
+      <div class="foot"><div class="btn">Post a role free &#8594;</div><div class="url">groyouth.com</div></div>'''
+    return page(NAVY, "#47A3FF", inner)
 
 # ---------- S3: 5 skills 2026 ----------
 def s3():
@@ -97,26 +106,24 @@ def s3():
           <div><div style="font-size:33px;font-weight:800;color:#fff;">{t}</div>
           <div style="font-size:24px;font-weight:600;color:#97A1C4;margin-top:3px;">{sub}</div></div>
         </div>'''
-    return head(NAVY,"#52D695") + f'''
-    <div class="page">
+    inner = f'''
       <div class="top"><img class="logo" src="{LOGO}"><div class="pill">CAREER SKILLS</div></div>
       <div class="h1" style="font-size:52px;margin-top:40px;">5 SKILLS THAT GET YOU HIRED IN 2026</div>
       <div class="sub" style="color:#52D695;font-style:italic;font-size:32px;margin-top:8px;">that no degree teaches</div>
       <div style="background:#12181A;border-radius:20px;padding:6px 26px;margin-top:26px;">{s}</div>
-      <div class="foot"><div class="url" style="margin-left:auto;">groyouth.com</div></div>
-    </div></body></html>'''
+      <div class="foot"><div class="url" style="margin-left:auto;">groyouth.com</div></div>'''
+    return page(NAVY, "#52D695", inner)
 
 # ---------- S4: why the ATS is free (founder quote) ----------
 def s4():
-    return head("linear-gradient(135deg,#5B3FA6 0%,#2A2350 45%,#0E1024 100%)","#B98CFF") + f'''
-    <div class="page">
+    inner = f'''
       <div class="top"><img class="logo" src="{LOGO}"><div class="pill">FOUNDER&#8217;S DESK</div></div>
       <div style="font-family:Georgia,serif;font-size:150px;line-height:0.6;color:#B98CFF;margin-top:40px;">&#8220;</div>
       <div style="font-family:Georgia,serif;font-size:62px;line-height:1.28;color:#fff;font-weight:700;margin-top:10px;width:900px;">
         We made our ATS <span style="color:#B98CFF;">free on purpose.</span> A marketplace only works when <span style="color:#B98CFF;">both sides show up.</span></div>
       <div style="font-size:30px;font-weight:700;color:#C9CFE6;margin-top:40px;">&#8212; Founder&#8217;s Desk, GroYouth</div>
-      <div class="foot"><div class="btn">Claim your free ATS &#8594;</div><div class="url">groyouth.com</div></div>
-    </div></body></html>'''
+      <div class="foot"><div class="btn">Claim your free ATS &#8594;</div><div class="url">groyouth.com</div></div>'''
+    return page("linear-gradient(135deg,#5B3FA6 0%,#2A2350 45%,#0E1024 100%)", "#B98CFF", inner)
 
 # ---------- S5: more than a resume (GY Assist) ----------
 def s5():
@@ -124,16 +131,13 @@ def s5():
     chip_html = ""
     for c in chips:
         chip_html += f'''<span style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid #52D695;color:#0E1024;background:#EAF9F1;font-size:22px;font-weight:700;padding:9px 15px;border-radius:20px;margin:0 8px 10px 0;">{c} <span style="color:#2BB673;">&#10003;</span></span>'''
-    # score ring (SVG, 88%)
-    import math
     r=78; circ=2*math.pi*r; fill=circ*0.88
     ring=f'''<svg width="200" height="200" viewBox="0 0 200 200">
       <circle cx="100" cy="100" r="{r}" fill="none" stroke="#E4EAF2" stroke-width="18"/>
       <circle cx="100" cy="100" r="{r}" fill="none" stroke="#52D695" stroke-width="18" stroke-linecap="round"
         stroke-dasharray="{fill:.0f} {circ:.0f}" transform="rotate(-90 100 100)"/>
       <text x="100" y="116" text-anchor="middle" font-family="Helvetica,Arial" font-size="52" font-weight="800" fill="#0E1024">88%</text></svg>'''
-    return head("radial-gradient(1200px 700px at 78% 40%, #1c2b3a 0%, #0E1024 60%)","#B98CFF") + f'''
-    <div class="page">
+    inner = f'''
       <div class="top"><img class="logo" src="{LOGO}"><div class="pill">GY ASSIST</div></div>
       <div style="display:flex;flex:1;align-items:center;gap:36px;margin-top:20px;">
         <div style="flex:0 0 430px;">
@@ -142,20 +146,20 @@ def s5():
         </div>
         <div style="flex:1;background:#fff;border-radius:28px;padding:34px 32px;color:#0E1024;box-shadow:0 30px 80px rgba(0,0,0,0.35);">
           <div style="display:flex;align-items:center;gap:18px;">
-            <div style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#B98CFF,#52D695);color:#fff;font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center;">AS</div>
+            <div style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#B98CFF,#52D695);color:#fff;font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto;">AS</div>
             <div><div style="font-size:30px;font-weight:800;">Ananya Sharma</div>
             <div style="font-size:22px;color:#5B6478;">Software Engineer</div></div>
           </div>
-          <div style="text-align:center;margin:18px 0;"><div style="font-size:20px;font-weight:700;color:#5B6478;text-align:left;">Score</div>{ring}</div>
+          <div style="margin:16px 0;"><div style="font-size:20px;font-weight:700;color:#5B6478;">Score</div>
+          <div style="text-align:center;">{ring}</div></div>
           <div style="font-size:20px;font-weight:800;color:#0E1024;margin-bottom:12px;">Verified Skills</div>
           <div>{chip_html}</div>
         </div>
       </div>
-      <div class="foot"><div class="btn">Build your profile free &#8594;</div><div class="url">groyouth.com</div></div>
-    </div></body></html>'''
+      <div class="foot"><div class="btn">Build your profile free &#8594;</div><div class="url">groyouth.com</div></div>'''
+    return page("radial-gradient(1200px 700px at 78% 40%, #1c2b3a 0%, #0E1024 60%)", "#B98CFF", inner)
 
 CARDS = {"ns_s1_bad_hire.html":s1(),"ns_s2_shortlist.html":s2(),"ns_s3_skills.html":s3(),
          "ns_s4_free_ats.html":s4(),"ns_s5_gyassist.html":s5()}
 for fn,html in CARDS.items():
-    open(fn,"w").write(html)
-    print("wrote",fn,len(html),"bytes")
+    open(fn,"w").write(html); print("wrote",fn,len(html),"bytes")
