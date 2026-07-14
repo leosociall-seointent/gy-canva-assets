@@ -10,7 +10,9 @@ not a 16:9 presentation). Content sits in an absolute .wrap.
     python3 gen_nextset_cards.py   # writes ns_s1..ns_s5.html
 """
 import math
-LOGO = "https://raw.githubusercontent.com/leosociall-seointent/gy-canva-assets/main/gy-logo.png"
+BASE = "https://raw.githubusercontent.com/leosociall-seointent/gy-canva-assets/main/"
+LOGO = BASE + "gy-logo.png"
+BG_NAVY, BG_VIOLET, BG_RADIAL = BASE+"ns_bg_navy.png", BASE+"ns_bg_violet.png", BASE+"ns_bg_radial.png"
 
 HEAD = """<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=1080, height=1080"><style>
@@ -18,7 +20,7 @@ HEAD = """<!doctype html><html><head><meta charset="utf-8">
   html,body{width:1080px;height:1080px;}
   .page{position:relative;width:1080px;height:1080px;overflow:hidden;
     font-family:'Helvetica Neue',Arial,sans-serif;color:#EEF2FB;}
-  .bg{position:absolute;top:0;left:0;width:1080px;height:1080px;background:%(bg)s;}
+  .bg{position:absolute;top:0;left:0;width:1080px;height:1080px;object-fit:cover;}
   .wrap{position:absolute;top:0;left:0;width:1080px;height:1080px;
     padding:60px 64px;display:flex;flex-direction:column;}
   .top{display:flex;justify-content:space-between;align-items:center;}
@@ -33,11 +35,9 @@ HEAD = """<!doctype html><html><head><meta charset="utf-8">
   .url{color:#EEF2FB;font-size:27px;font-weight:800;}
 </style></head><body>"""
 
-def page(bg, acc, inner):
-    head = HEAD % {"bg": bg, "acc": acc}
-    return head + f'<div class="page"><div class="bg"></div><div class="wrap">{inner}</div></div></body></html>'
-
-NAVY = "#0E1024"
+def page(bgimg, acc, inner):
+    head = HEAD % {"acc": acc}
+    return head + f'<div class="page"><img class="bg" src="{bgimg}"><div class="wrap">{inner}</div></div></body></html>'
 
 # ---------- S1: cost of a bad hire ----------
 def s1():
@@ -66,7 +66,7 @@ def s1():
       <div class="h1" style="font-size:108px;color:#47A3FF;font-family:Georgia,serif;margin-top:10px;">&#8377;5&#8211;7 LAKH</div>
       <div style="background:#14162E;border-radius:20px;padding:6px 26px;margin-top:34px;">{r}</div>
       <div class="foot"><div class="url" style="margin-left:auto;">groyouth.com</div></div>'''
-    return page(NAVY, "#47A3FF", inner)
+    return page(BG_NAVY, "#47A3FF", inner)
 
 # ---------- S2: job post -> shortlist in 3 steps ----------
 def s2():
@@ -87,7 +87,7 @@ def s2():
       <div class="h1" style="font-size:56px;margin-top:44px;">JOB POST &#8594; SHORTLIST IN 3 STEPS</div>
       <div style="margin-top:40px;">{s}</div>
       <div class="foot"><div class="btn">Post a role free &#8594;</div><div class="url">groyouth.com</div></div>'''
-    return page(NAVY, "#47A3FF", inner)
+    return page(BG_NAVY, "#47A3FF", inner)
 
 # ---------- S3: 5 skills 2026 ----------
 def s3():
@@ -112,7 +112,7 @@ def s3():
       <div class="sub" style="color:#52D695;font-style:italic;font-size:32px;margin-top:8px;">that no degree teaches</div>
       <div style="background:#12181A;border-radius:20px;padding:6px 26px;margin-top:26px;">{s}</div>
       <div class="foot"><div class="url" style="margin-left:auto;">groyouth.com</div></div>'''
-    return page(NAVY, "#52D695", inner)
+    return page(BG_NAVY, "#52D695", inner)
 
 # ---------- S4: why the ATS is free (founder quote) ----------
 def s4():
@@ -123,7 +123,7 @@ def s4():
         We made our ATS <span style="color:#B98CFF;">free on purpose.</span> A marketplace only works when <span style="color:#B98CFF;">both sides show up.</span></div>
       <div style="font-size:30px;font-weight:700;color:#C9CFE6;margin-top:40px;">&#8212; Founder&#8217;s Desk, GroYouth</div>
       <div class="foot"><div class="btn">Claim your free ATS &#8594;</div><div class="url">groyouth.com</div></div>'''
-    return page("linear-gradient(135deg,#5B3FA6 0%,#2A2350 45%,#0E1024 100%)", "#B98CFF", inner)
+    return page(BG_VIOLET, "#B98CFF", inner)
 
 # ---------- S5: more than a resume (GY Assist) ----------
 def s5():
@@ -157,7 +157,7 @@ def s5():
         </div>
       </div>
       <div class="foot"><div class="btn">Build your profile free &#8594;</div><div class="url">groyouth.com</div></div>'''
-    return page("radial-gradient(1200px 700px at 78% 40%, #1c2b3a 0%, #0E1024 60%)", "#B98CFF", inner)
+    return page(BG_RADIAL, "#B98CFF", inner)
 
 CARDS = {"ns_s1_bad_hire.html":s1(),"ns_s2_shortlist.html":s2(),"ns_s3_skills.html":s3(),
          "ns_s4_free_ats.html":s4(),"ns_s5_gyassist.html":s5()}
